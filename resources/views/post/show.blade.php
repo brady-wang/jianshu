@@ -64,7 +64,7 @@
             $(".delete").click(function(){
 
                 var id = $(this).attr('data-id');
-                
+
                 layer.confirm('确定删除？', {
                     btn: ['确定','取消'] //按钮
                 }, function(){

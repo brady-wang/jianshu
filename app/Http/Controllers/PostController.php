@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Brady\Tool\Upload\Oss;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\DeclareDeclare;
 
@@ -12,6 +13,7 @@ class PostController extends Controller
 	//列表页面
 	public function index()
 	{
+
 		$posts = Post::orderBy("created_at",'desc')->paginate(2);
 		return view("post.index",compact('posts'));
 	}
@@ -81,9 +83,22 @@ class PostController extends Controller
 	public function upload(Request $request)
 
 	{
-		$path=$request->file('wangEditorH5File')->storePublicly(md5(time()));
-		$file = asset('storage/'.$path);//返回生成的文件的完整路径：
-		$arr = ['url'=>["https://pics6.baidu.com/feed/b7fd5266d0160924e13faec61917bbffe7cd34ee.jpeg?token=c8e65488aa4d17020b1444fd55f7a1c5&s=BC586E9648134EDA18BB38EB0300E02A"]];
-		return json_encode($arr);
+		$config = [
+			'accessKeyId'=>env("accessKeyId"),
+			'accessKeySecret'=>env("accessKeySecret"),
+			'endpoint'=>env("endpoint"),
+			'bucket'=>env("bucket"),
+		];
+
+		$oss = new Oss($config);
+		$res   = $oss->upload($request->file('wangEditorH5File'),"jianshu/".md5(time()).".jpg");
+
+		if(!empty($res['oss-request-url'])){
+			$arr = ['url'=>[$res['oss-request-url']]];
+		} else {
+			$arr = ['url'=>[]];
+		}
+
+		echo  json_encode($arr);
 	}
 }

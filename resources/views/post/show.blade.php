@@ -6,7 +6,8 @@
             <div class="blog-post">
                 <div style="display:inline-flex">
                     <input type="hidden" id="_token" value="{{ csrf_token() }}">
-                    <h2 class="blog-post-title">{{ $post->title }}</h2>
+                    <h2 class="blog-post-title">{!! str_limit($post->title,500,'...') !!}</h2>
+                    &nbsp;
                     <a style="margin: auto"  href="/posts/{{ $post->id }}/edit">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>

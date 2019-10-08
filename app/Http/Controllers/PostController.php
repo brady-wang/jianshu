@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Brady\Tool\Upload\Oss;
 use Illuminate\Http\Request;
+use Illuminate\Log\LogManager;
 use PhpParser\Node\Stmt\DeclareDeclare;
+use Psr\Log\LoggerInterface;
 
 class PostController extends Controller
 {
@@ -19,8 +21,13 @@ class PostController extends Controller
 	}
 
 	//详情页面
-	public function show(Post $post)
+	public function show(Post $post,LogManager $log)
 	{
+//		$app = app();
+//		$log = $app->make('log');
+		\Log::info("这个是日志",['可以传递多个变量记录']);
+
+
 		return view("post.show",compact('post'));
 	}
 

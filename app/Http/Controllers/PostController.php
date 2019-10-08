@@ -57,6 +57,7 @@ class PostController extends Controller
 	//更新操作
 	public function update(Post $post,Request $request)
 	{
+		//todo 用户权限
 		$params = $request->toArray();
 		$post->title = $params['title'];
 		$post->content = $params['content'];
@@ -69,9 +70,10 @@ class PostController extends Controller
 	}
 
 	//删除
-	public function delete($id)
+	public function delete(Post $post)
 	{
-		$res = Post::where('id',$id)->delete();
+		// todo 用户权限
+		$res = $post->delete();
 		if($res){
 			echo json_encode(['code'=>200,'msg'=>'删除成功']);
 		} else {

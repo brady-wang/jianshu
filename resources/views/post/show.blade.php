@@ -81,7 +81,7 @@
                         success: function (res) {
                             if (res.code == 200) {
                                 layer.msg(res.msg, {"icon": 1})
-                                setTimeout("location.href='/posts'")
+                                setTimeout("location.href='/posts'",2000)
                             } else {
                                 layer.msg(res.msg, {"icon": 2})
                             }

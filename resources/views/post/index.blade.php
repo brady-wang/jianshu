@@ -39,7 +39,7 @@
                         <h2 class="blog-post-title"><a href="/posts/detail/{{$post->id}}}" >{!! str_limit($post->title,50,'...') !!}</a></h2>
                         <p class="blog-post-meta">{{ $post->created_at->toFormattedDateString() }} by <a href="/user/{{$post->user_id}}">Kassandra Ankunding2</a></p>
 
-                        <p>{!! str_limit($post->content,100,"...") !!}
+                        <p>{!!  str_limit(preg_replace("/<img.*?>/si","",$post->content),200,"...") !!}
                         <p class="blog-post-meta">赞 0  | 评论 0</p>
                     </div>
                 @endforeach

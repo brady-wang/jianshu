@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label>内容</label>
                     <div id="content">
-                        {!! $post->content  !!}
+                          <p> {!! $post->content !!}   </p>
                     </div>
                 </div>
                 <button type="submit"  id="edit" class="btn btn-default">提交</button>

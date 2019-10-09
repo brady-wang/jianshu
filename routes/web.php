@@ -1,16 +1,20 @@
 <?php
 
 Route::get('/test',"TestController@index");
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
+//注册
+Route::get('/registor',"RegistorController@index");
+Route::post('/registor',"RegistorController@registor");
+
+//登录
+Route::get('/login',"LoginController@index");
+Route::post('/login',"LoginController@login");
+Route::get('/logout',"LoginController@logout");
+//个人页面
+Route::get('/user',"UserController@index");
+Route::get('/user/setting',"UserController@setting");
+Route::post('/user/setting',"UserController@settingUser");
+
 //文章列表 详情
 Route::get('/',"PostController@index");
 Route::get('/posts',"PostController@index");

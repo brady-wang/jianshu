@@ -6,7 +6,7 @@
             <input type="hidden" id="_token" name="_token" value="{{csrf_token()}}">
             <div class="form-group">
                 <label>标题</label>
-                <input name="title" id="title" type="text" class="form-control" placeholder="这里是标题">
+                <input name="title" id="title" type="text" class="form-control" placeholder="这里是标题" autofocus>
             </div>
             <div class="form-group">
                 <label>内容</label>

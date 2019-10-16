@@ -5,7 +5,7 @@
         </div>
         <div class="panel-body">
             <p>
-                欢迎来到简书网站
+                欢迎 {{ isset(\Auth::user()->name) ? \Auth::user()->name : ''}}来到简书网站
             </p>
             <p>
                 <strong><a href="/">简书网站</a></strong> 基于 Laravel5.4 构建

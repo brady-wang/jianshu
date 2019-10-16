@@ -22,6 +22,11 @@
     <link href="http://v3.bootcss.com/examples/signin/signin.css" rel="stylesheet">
 
 
+    <script src="/lib/jquery/jquery-2.2.1.js"></script>
+    <script src="/lib/layer/layer.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -31,25 +36,71 @@
 
 <body>
 
-<div class="container">
+<div class="container" id="app">
 
     <form class="form-signin" method="POST" action="/login">
-        <input type="hidden" name="_token" value="MESUY3topeHgvFqsy9EcM916UWQq6khiGHM91wHy">
+        {{csrf_field()}}
         <h2 class="form-signin-heading">请登录</h2>
-        <label for="inputEmail" class="sr-only">邮箱</label>
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputName" class="sr-only">用户名</label>
+        <input v-model="form.name" autocomplete="off" type="text" value="{{ old("name") }}" name="name" id="inputName" class="form-control" placeholder="用户民"  autofocus>
         <label for="inputPassword" class="sr-only">密码</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input v-model="form.password"  autocomplete="off" type="password" value="{{ old('password') }}" name="password" id="inputPassword" class="form-control" placeholder="密码" >
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="1" name="is_remember"> 记住我
+                <input v-model="form.is_remember"  type="checkbox" value="{{ old('is_remember') }}" name="is_remember"> 记住我
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        <button class="btn btn-lg btn-primary btn-block" type="submit"  id="login">登陆</button>
         <a href="/register" class="btn btn-lg btn-primary btn-block" type="submit">去注册>></a>
     </form>
 
 </div> <!-- /container -->
 
+
+<script>
+
+    $(document).keyup(function(event){
+        if(event.keyCode ==13){
+            $("#login").trigger("click");
+        }
+    });
+//    var app = new Vue({
+//        el: '#app',
+//        data: {
+//            form:{
+//                name:'',
+//                password:'',
+//                _token:'',
+//                is_remember:0
+//            }
+//        },
+//        methods:{
+//            login:function(){
+//                this.form._token = $("#_token").val()
+//                axios.post('/login', this.form)
+//                    .then(function (response) {
+//                        var res = response.data;
+//                        if(res.code != 200){
+//                            layer.msg(res.msg,{icon:2});
+//                            console.log(res.msg )
+//                            return
+//                        } else {
+//                            layer.msg("登录成功",{icon:1});
+//                            setTimeout("location.href='/posts'",2000);
+//                        }
+//                    })
+//                    .catch(function (error) {
+//                        console.log(error);
+//                    });
+//            }
+//        }
+//    })
+</script>
 </body>
 </html>
